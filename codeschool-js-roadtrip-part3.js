@@ -100,8 +100,42 @@ function dontPanic(location) {
 dontPanic(lighthouseRock);
 
 
+// ! OBJECTS
 
-// objects
+// Aquarium example from video
+var aquarium = {
+
+	Nemo: {type: "fish", species: "clownfish", length: 3.7},
+	Marlin: {type: "fish", species: "clownfish", length: 4.1},
+	Dory: {type: "fish", species: "blue tang", length: 6.2},
+	"Coral Castle": {type: "environment", material: "coquina", moves: false},
+	"Dragon Statue": {type: "environment", material: "plastic", moves: false},
+	addCritter: function (name, type, species, length) {
+		this[name] = {type: type, species: species, length: length}; // 'this' will always refer to the owner object of the function in which the 'this' is used
+	}
+};
+
+
+
+function addToy(container, name, type, material, moves) {
+	container[name] = {type: type, material: material, moves: moves};
+}
+
+aquarium.addCritter("Bubbles", "fish", "yellow tang", 5.6);
+
+
+aquarium.takeOut = function (name) {
+	this[name].name = name; // to hold the objects name;
+		// The first 'name' in this line of code finds the desired Object in the aquarium using the parameter as the property name.
+		// Coming after a dot, the second 'name' creates a new property IN the Object we want to remove. Notice that this is NOT the same as the function's parameter.
+		// The third 'name' IS the functions parameter. It assigns the old property name to the newly created 'name' property in the removed Object
+
+	var temp = this[name]; // hold on to the object we remove, so as to still have access to it outside the aquarium - temp is assigned a reference to the object that 'this.name' points to
+	delete this[name]; // remove the property from the owner object - the aquarium
+	return temp; // we return the temp var, so that we can still have a reference to the removed object
+}
+
+
 // http://javascript-roadtrip-part3.codeschool.com/levels/4/challenges/11
 
 var superBlinders = [ ["Firestorm", 4000], ["Solar Death Ray", 6000], ["Supernova", 12000] ];
